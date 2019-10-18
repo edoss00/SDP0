@@ -1,1 +1,4 @@
 DEVLOG for Team Fine Pizza
+
+avrahamiB -- 2019-10-18 09:25
+Creation of necessary files - README, devlog, database(empty), utl directory
