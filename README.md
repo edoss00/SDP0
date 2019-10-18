@@ -1,7 +1,7 @@
 # Project Pizza
 **P#0 by Team Fine Pizza**  
-  
-  **Roster**  
+
+  **Roster:**  
   Benjamin Avrahami  
   Tyler Huang  
   William Lin  
