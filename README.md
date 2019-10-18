@@ -1,4 +1,4 @@
-# Team Fine Pizza
+# Project Pizza
 ## P#0 by Team Fine Pizza
 
 ## Roster
