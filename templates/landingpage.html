@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block header %}
+  {% block title %}
+    <title> Home Page </title>
+  {% endblock %}
+{% endblock %}
+{% block content %}
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      <h1> {{ messages[0] }} </h1>
+      <h1> {{ messages[1] }} </h1>
+    {% endif %}
+  {% endwith %}
+  <h1> LOGIN </h1>
+  <form action = "/login", method = "POST">
+    Enter your username:
+    <input type = "text" name = "username"> <br><br>
+    Enter your password:
+    <input type = "text" name = "password"> <br><br>
+    <input type = "submit" name = "sub1" value = "login"> <br>
+  </form>
+  <h1> REGISTER </h1>
+  <form action = "/register", method = "POST">
+    Enter your username:
+    <input type = "text" name = "username"> <br><br>
+    Enter your password:
+    <input type = "text" name = "password"> <br><br>
+    <input type = "submit" name = "sub2" value = "register"> <br>
+  </form>
+{% endblock %}
+{% block footer %}
+{% endblock %}
