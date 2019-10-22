@@ -3,8 +3,8 @@ DEVLOG for Team Fine Pizza
 avrahamiB -- 2019-10-18 09:25
 Creation of necessary files - README, devlog, database(empty), utl directory
 
-linW -- 2019-10-20 09:20 PM
+linW -- 2019-10-20 21:20
 - creation of design file
 
-linW -- 2019-10-20 05:28 AM
+linW -- 2019-10-20 05:28
 - updated design file
