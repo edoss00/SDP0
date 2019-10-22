@@ -20,3 +20,21 @@ huangT -- 2019-10-21 09:11
 Created app.py, base.html, homepage.html, landingpage.html. For app.py I added
 routes for root, home, logout, login, and register. Also, created the methods
 for each of the routes. I made the design for the html files.
+
+williamL -- 2019-10-21 09:25
+SQLite Methods
+Join- there are multiple methods to query data from two or more tables,
+      which include "inner join", "left join", and "cross join". This would
+      be useful in figuring out a user's total contributions by retrieving
+      all the edits they made from each story's tables
+Inner Join -
+  Syntax:   SELECT a1, a2, b1, b2         // column name(s)
+            FROM A                        // table(s) to read from
+            INNER JOIN B ON B.f = A.f;    // if column f in B equals column f in
+                                          // A, return in a table
+
+Left Join - used on tables with related columns (same name)
+  Syntax:   SELECT a, b                 // column name(s)
+            FROM A                      // table(s) to read from
+            LEFT JOIN B ON A.f = B.f    // if column f in A equals column f in B; also works for > and <
+            WHERE search_condition;
