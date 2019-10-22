@@ -61,3 +61,16 @@ What can we do about this?
 3. Don't spend hours trying to make things perfect when they already work well because it will never be perfect
 
 (If you thought that was a multiple choice question, the answer is 4. All of the above)
+
+avrahamiB -- 2019-10-22 09:25
+Created a function to facilitate inserting rows into a table
+Usage:
+  insert(<table_name>, <params>)
+It can handle 2, 3, or 4 parameters, based on the number of columns in the given table
+
+avrahamiB -- 2019-10-22 18:40
+Added new table and adjusted parameters of other tables, as shown on design doc.
+
+Created a function to update a table when someone adds something new to a story
+Usage:
+  update(<story_id>, <added text>)
