@@ -15,3 +15,7 @@ in some areas were changed to be more technically correct. Added a way for users
 to only be able to contribute to a story once. Major web pages, functions, and
 variables were also laid out to give a general guideline of what should be
 implemented.
+
+huangT -- 2019-10-21 09:11
+Created app.py, base.html, homepage.html, landingpage.html. For app.py I added
+routes to redirect to the different pages. I made the design for the html files.
