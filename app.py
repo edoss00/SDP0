@@ -12,7 +12,10 @@ session = {}
 
 @app.route("/")
 def root(): #if user is logged in, redirect to the homepage, otherwise prompt user to login or register
-    return render_template("landingpage.html")
+    if 'user' in session:
+        return redirect(url_for("home"))
+    else:
+        return render_template("landingpage.html")
 
 @app.route("/home")
 def home(): #display home page of website
