@@ -50,3 +50,14 @@ Cross Join - given table A with k rows and table B with n rows, a set is
   Syntax: SELECT *
           FROM A
           CROSS JOIN B;
+          
+avrahamiB -- 2019-10-21 16:50
+Programming Sucks
+
+In the real world, most programs are broken most of the time, due to various factors, but especially the lack of coordination.
+What can we do about this?
+1. Communicate
+2. Put meaningful comments in our code
+3. Don't spend hours trying to make things perfect when they already work well because it will never be perfect
+
+(If you thought that was a multiple choice question, the answer is 4. All of the above)
