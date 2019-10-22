@@ -20,7 +20,16 @@ def home(): #display home page of website
 
 @app.route("/logout")
 def logout(): #logs out user, return to login/register page
+    session.pop('user') #removes the user from session
     return redirect(url_for("root"))
+
+@app.route("/login", methods = ["POST"])
+def login(): #check credentials against the table and confirms if they are correct
+    return "hello"
+
+@app.route("/register", methods = ["POST"])
+def register(): #adds credentials to the users table and then redirects to the homepage
+    return redirect(url_for("home"))
 
 if __name__ == "__main__":
     app.debug = True
