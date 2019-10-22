@@ -7,4 +7,11 @@ williamL -- 2019-10-20 21:20
 Creation of design file
 
 williamL -- 2019-10-20 05:28
-Updated design file
+Updated the design file include the component diagram that illustrates how the
+front-end aspects of the code with interact with the back-end to create a
+working site. Also tables of the databases to show what each table should store
+in each column. The site map was slightly improved to be more accurate. Wording
+in some areas were changed to be more technically correct. Added a way for users
+to only be able to contribute to a story once. Major web pages, functions, and
+variables were also laid out to give a general guideline of what should be
+implemented.
