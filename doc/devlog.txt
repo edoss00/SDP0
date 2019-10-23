@@ -77,3 +77,8 @@ Usage:
 
 avrahamiB -- 2019-10-23 09:25
 Made update command also change the edits table
+
+Created a function to tell whether a person has edited a particular story
+Usage:
+  has_edited(<user_id>, <story_id>)
+It will return true if the user has edited that story before, and false if not

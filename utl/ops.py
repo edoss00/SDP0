@@ -39,5 +39,15 @@ def insert(table, param1, param2, param3, param4):
     c.execute(command)
 
 
+
+def has_edited(user, story):
+    outline = "SELECT * FROM edits WHERE user_id = {} AND story_id = {};"
+    command = outline.format(user, story)
+    q = c.execute(command)
+    for bar in q:
+      return True
+    return False
+
+
 db.commit()
 db.close()
