@@ -10,6 +10,14 @@ app.secret_key = "adsfgt"
 
 session = {}
 
+DB_FILE = "data.db"
+
+db = sqlite3.connect(DB_FILE)
+c = db.cursor()
+
+c.execute("CREATE TABLE users (username INTEGER, password TEXT, id INTEGER);")
+
+
 @app.route("/")
 def root(): #if user is logged in, redirect to the homepage, otherwise prompt user to login or register
     if 'user' in session:
@@ -33,6 +41,9 @@ def login(): #check credentials against the table and confirms if they are corre
 @app.route("/register", methods = ["POST"])
 def register(): #adds credentials to the users table and then redirects to the homepage
     return redirect(url_for("home"))
+
+db.commit()
+db.close()
 
 if __name__ == "__main__":
     app.debug = True
