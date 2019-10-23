@@ -73,4 +73,7 @@ Added new table and adjusted parameters of other tables, as shown on design doc.
 
 Created a function to update a table when someone adds something new to a story
 Usage:
-  update(<story_id>, <added text>)
+  update(<user_id>, story_id>, <added text>)
+
+avrahamiB -- 2019-10-23 09:25
+Made update command also change the edits table

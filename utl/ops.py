@@ -7,7 +7,7 @@ db = sqlite3.connect(dbfile)
 c = db.cursor()
 
 
-def update(story, edit):
+def update(user, story, edit):
     current = ""
     outline = "SELECT story_text FROM stories WHERE story_id = {};"
     command = outline.format(story)
@@ -17,7 +17,9 @@ def update(story, edit):
     outline = "UPDATE stories SET story_text = {}, last_edit = {} WHERE story_id = {};"
     command = outline.format(current, edit, story)
  
-    
+    outline = "INSERT INTO edits VALUES ({}, {}, {});"
+    command = outline.format(user, story, edit)
+    c.execute(command)
     
 
 
