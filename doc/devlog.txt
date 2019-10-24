@@ -105,3 +105,8 @@ continued working on app.py
 williamL -- 2019-10-24 00:50
 Fixed the error in the code for register(). The register function now adds the
 inputs into a table, and logs the user into a session.
+
+huangT -- 2019-10-24 09:17
+continued working on app.py
+  made a function to get the length of tables
+  used this function to increment user_id 

@@ -10,7 +10,7 @@ app = Flask(__name__)
 app.secret_key = "adsfgt"
 
 session = {}
-user_id = 0
+
 @app.route("/")
 def root(): #if user is logged in, redirect to the homepage, otherwise prompt user to login or register
     if 'user' in session:
@@ -60,7 +60,6 @@ def login(): #check credentials against the table and confirms if they are corre
 @app.route("/register", methods = ["POST"])
 def register(): #adds credentials to the users table and then redirects to the homepage
     try:
-        global user_id
         if (request.form['username'] == "" or request.form['password'] == ""):
             flash("ERROR! Username and password cannot be blank")
             flash("register error")
@@ -80,7 +79,6 @@ def register(): #adds credentials to the users table and then redirects to the h
             # else:
             c.execute("INSERT into users VALUES(?, ?, ?);", (user_id, request.form['username'], request.form['password']))
             session['user'] = request.form['username']
-            user_id += 1
             db.commit()
             db.close()
             return redirect(url_for("home"))
@@ -88,6 +86,25 @@ def register(): #adds credentials to the users table and then redirects to the h
         flash("ERROR! Invalid characters")
         flash("register error")
         return redirect(url_for("root"))
+
+def has_edited(user, story):
+    outline = "SELECT * FROM edits WHERE user_id = {} AND story_id = {};"
+    command = outline.format(user, story)
+    q = c.execute(command)
+    for bar in q:
+      return True
+    return False
+
+def getTableLen(tbl):
+    dbfile = "holding.db"
+    db = sqlite3.connect(dbfile)
+    c = db.cursor()
+    command = "SELECT * FROM {};"
+    q = c.execute(command.format(tbl))
+    count = 0
+    for line in q:
+        count += 1
+    return count
 
 if __name__ == "__main__":
     app.debug = True
