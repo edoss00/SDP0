@@ -45,20 +45,17 @@ def login(): #check credentials against the table and confirms if they are corre
         c = db.cursor()
         command = "SELECT username FROM users WHERE username = ?;"
         listUsers = c.execute(command, request.form['username'])
-        if (listUsers == request.form['username']):
-            flash("Username is already taken. Please choose another one.")
-        else:
-            for bar in listUsers:
-                getPass = "SELECT password FROM users WHERE username = ?;"
-                listPass = c.execute(getPass, bar[0])
-                for p in listPass:
-                    if request.form['password'] == p[0]:
-                        session['user'] = request.form['username']
-                        return redirect(url_for("home"))
-                    else:
-                        flash("ERROR! Incorrect password")
-                        flash("invalid pass")
-                        return redirect(url_for("root"))
+        for bar in listUsers:
+            getPass = "SELECT password FROM users WHERE username = ?;"
+            listPass = c.execute(getPass, bar[0])
+            for p in listPass:
+                if request.form['password'] == p[0]:
+                    session['user'] = request.form['username']
+                    return redirect(url_for("home"))
+                else:
+                    flash("ERROR! Incorrect password")
+                    flash("invalid pass")
+                    return redirect(url_for("root"))
 
 @app.route("/register", methods = ["POST"])
 def register(): #adds credentials to the users table and then redirects to the homepage
@@ -72,9 +69,12 @@ def register(): #adds credentials to the users table and then redirects to the h
             dbfile = "holding.db"
             db = sqlite3.connect(dbfile)
             c = db.cursor()
-            c.execute("INSERT into users VALUES(?, ?, ?);", (user_id, request.form['username'], request.form['password']))
-            session['user'] = request.form['username']
-            user_id += 1
+            if (c.execute("SELECT username FROM users WHERE username = ?;", request.form['username'])):
+                flash("Username is already taken. Please choose another one.")
+            else:
+                c.execute("INSERT into users VALUES(?, ?, ?);", (user_id, request.form['username'], request.form['password']))
+                session['user'] = request.form['username']
+                user_id += 1
             db.commit()
             db.close()
             return redirect(url_for("home"))
