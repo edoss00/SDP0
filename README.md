@@ -10,7 +10,7 @@
 
 <br><br>
 **HOW TO RUN THE PROJECT**
-Before you run: Download flask
+<br>Before you run: Download flask
 - from home directory
 ```
 $ python3 -m venv [insert hero]     #creates virtual environment
