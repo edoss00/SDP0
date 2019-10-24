@@ -8,9 +8,10 @@
   David Wang  -  Create page for editing and creating new articles, display previous edit on page, make sure new story typed by user is saved and added to the appropriate table  
 
 
-
+<br><br>
 **HOW TO RUN THE PROJECT**
-Before you run:
+<br>Before you run:
+<br>
 Download flask
 - from home directory
 ```
