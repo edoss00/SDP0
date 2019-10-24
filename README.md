@@ -7,6 +7,8 @@
   Tyler Huang  -  Make basic outline of project, connect to pages, ensure flexibility of connecting to new pages once created  
   David Wang  -  Create page for editing and creating new articles, display previous edit on page, make sure new story typed by user is saved and added to the appropriate table  
 
+
+
 **HOW TO RUN THE PROJECT**
 Before you run:
 Download flask
