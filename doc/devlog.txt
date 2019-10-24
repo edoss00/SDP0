@@ -16,7 +16,7 @@ to only be able to contribute to a story once. Major web pages, functions, and
 variables were also laid out to give a general guideline of what should be
 implemented.
 
-huangT -- 2019-10-21 09:11
+tylerH -- 2019-10-21 09:11
 Created app.py, base.html, homepage.html, landingpage.html. For app.py I added
 routes for root, home, logout, login, and register. Also, created the methods
 for each of the routes. I made the design for the html files.
@@ -83,7 +83,7 @@ Usage:
   has_edited(<user_id>, <story_id>)
 It will return true if the user has edited that story before, and false if not
 
-huangT -- 2019-10-23 08:11
+tylerH -- 2019-10-23 08:11
 continued working on app.py
   worked on register route, adding a function to add the credentials to the users table
   after register, the user is added into the session
@@ -96,7 +96,7 @@ avrahamiB -- 2019-10-23 21:30
 Made insert take any number of parameters
 Encountered a problem when trying to call ops from app.py - to be fixed later
 
-huangT -- 2019-10-23 21:51
+tylerH -- 2019-10-23 21:51
 continued working on app.py
   worked on login route, adding a function to check login input to credentials in users table
   added error flashing under login to make sure none of the fields are blank
@@ -106,12 +106,12 @@ williamL -- 2019-10-24 00:50
 Fixed the error in the code for register(). The register function now adds the
 inputs into a table, and logs the user into a session.
 
-huangT -- 2019-10-24 09:17
+tylerH -- 2019-10-24 09:17
 continued working on app.py
   made a function to get the length of tables
   used this function to increment user_id
 
-huangT -- 2019-10-24 11:26
+tylerH -- 2019-10-24 11:26
 continued working on app.py
   debugged the login and register functions
   register now correctly checks if a username is already taken
