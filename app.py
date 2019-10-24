@@ -108,11 +108,34 @@ def register(): #adds credentials to the users table and then redirects to the h
 def create(): #lets the user create a new story
     return render_template("newpage.html")
 
+@app.route("/newcheck")
+def unique(): #checks if the story exists and registers the story if it does not yet
+    dbfile = "holding.db"
+    db = sqlite3.connect(dbfile)
+    c = db.cursor()
+    command = "SELECT story_name FROM stories WHERE story_name = \"{}\";"
+    sameStory = c.execute(command.format(request.form['title']))
+    if len(list(enumerate(sameStory))) > 0:
+        flash("Title has already been taken. Please choose another one.")
+        return redirect(url_for("create"))
+    else:
+        command = ops.insert(stories, getTableLen(stories), request.form['title'], request.form['story'], request.form['story'])
+        c.execute(command)
+        q = c.execute("SELECT user_id FROM users WHERE username = \"{}\"".format(session['user']))
+        id = -1
+        for bar in q:
+            id = bar[0]
+        command = ops.insert(edits, id, getTableLen(stories) - 1, request.form['story'])
+        c.execute(command)
+    db.commit()
+    db.close()
+    return redirect(url_for("home")) 
+
 
 
 
 def has_edited(user, story):
-    outline = "SELECT * FROM edits WHERE user_id = {} AND story_id = {};"
+    outline = "SELECT * FROM edits WHERE username = {} AND story_id = {};"
     command = outline.format(user, story)
     q = c.execute(command)
     for bar in q:
