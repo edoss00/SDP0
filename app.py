@@ -20,10 +20,23 @@ def root(): #if user is logged in, redirect to the homepage, otherwise prompt us
 
 @app.route("/home")
 def home(): #display home page of website
+    def storyNames():
+        dbfile = "holding.db"
+        db = sqlite3.connect(dbfile)
+        c = db.cursor()
+        command = "SELECT story_name FROM stories"
+        storyList = c.execute(command)
+        list = []
+        for story in storyList:
+            list.append(story)
+        db.commit()
+        db.close()
+        return list
     if 'user' in session:
         return render_template(
             "homepage.html",
-            user = session['user']
+            user = session['user'],
+            storyName = storyNames()
         )
     else:
         return redirect(url_for("root"))
@@ -35,7 +48,7 @@ def logout(): #logs out user, return to login/register page
 
 @app.route("/login", methods = ["POST"])
 def login(): #check credentials against the table and confirms if they are correct
-    if (request.form['username'] == "" or request.form['password'] == ""): 
+    if (request.form['username'] == "" or request.form['password'] == ""):
         flash("ERROR! Invalid username and password")
         flash("invalid error")
         return redirect(url_for("root"))
@@ -90,6 +103,7 @@ def register(): #adds credentials to the users table and then redirects to the h
     #    flash("ERROR! Invalid characters")
     #    flash("register error")
     #    return redirect(url_for("root"))
+
 
 def has_edited(user, story):
     outline = "SELECT * FROM edits WHERE user_id = {} AND story_id = {};"

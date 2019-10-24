@@ -9,6 +9,11 @@
   <form action = "/logout">
     <input type = "submit" name = "sub3" value = "logout"> <br>
   </form>
+  <br><br>
+  <h1>STORIES</h1><br>
+  {% for element in storyName %}
+    {{element}}
+  {% endfor %}
 {% endblock %}
 {% block footer %}
 {% endblock %}

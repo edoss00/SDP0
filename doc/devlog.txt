@@ -115,4 +115,8 @@ huangT -- 2019-10-24 11:26
 continued working on app.py
   debugged the login and register functions
   register now correctly checks if a username is already taken
-  login also compares the credentials properly 
+  login also compares the credentials properly
+
+williamL -- 2019-10-23 16:52
+made the method for printing the list of stories on the home page
+  and implemented that into html using jinja
