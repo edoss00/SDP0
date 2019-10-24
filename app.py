@@ -109,6 +109,8 @@ def create(): #lets the user create a new story
     return render_template("newpage.html")
 
 
+
+
 def has_edited(user, story):
     outline = "SELECT * FROM edits WHERE user_id = {} AND story_id = {};"
     command = outline.format(user, story)

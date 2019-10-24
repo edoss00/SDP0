@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block header %}
+  {% block title %}
+    <title> New Story </title>
+  {% endblock %}
+{% endblock %}
+{% block content %}
+  <form action = "/newcheck", methods = "POST">
+    <input type = "text" name = "title" value = "Title of story"> <br>
+    <input type = "text" name = "story" value = "Story beginning"> <br>
+    <input type = "submit" name = "submit" value = "Submit">
+  </form>
+{% endblock %}
+{% block footer %}
+{% endblock %}
