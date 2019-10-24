@@ -16,7 +16,7 @@ DB_FILE = "data.db"
 db = sqlite3.connect(DB_FILE)
 c = db.cursor()
 
-c.execute("CREATE TABLE users (username INTEGER, password TEXT, id INTEGER);")
+#c.execute("CREATE TABLE users (username INTEGER, password TEXT, id INTEGER);")
 
 
 @app.route("/")
