@@ -104,6 +104,10 @@ def register(): #adds credentials to the users table and then redirects to the h
     #    flash("register error")
     #    return redirect(url_for("root"))
 
+@app.route("/create")
+def create(): #lets the user create a new story
+    return render_template("newpage.html")
+
 
 def has_edited(user, story):
     outline = "SELECT * FROM edits WHERE user_id = {} AND story_id = {};"
