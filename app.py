@@ -69,12 +69,18 @@ def register(): #adds credentials to the users table and then redirects to the h
             dbfile = "holding.db"
             db = sqlite3.connect(dbfile)
             c = db.cursor()
-            if (c.execute("SELECT username FROM users WHERE username = ?;", request.form['username'])):
-                flash("Username is already taken. Please choose another one.")
-            else:
-                c.execute("INSERT into users VALUES(?, ?, ?);", (user_id, request.form['username'], request.form['password']))
-                session['user'] = request.form['username']
-                user_id += 1
+            user = []
+            newUser = c.execute("SELECT username FROM users WHERE username = ?;", "'" + request.form['username'] + "'")
+            #for new in newUser:
+            #    user.append(new)
+            #print(user)
+            # if (len(user) > 0):
+            #     flash("Username is already taken. Please choose another one.")
+            #     return redirect(url_for("root"))
+            # else:
+            c.execute("INSERT into users VALUES(?, ?, ?);", (user_id, request.form['username'], request.form['password']))
+            session['user'] = request.form['username']
+            user_id += 1
             db.commit()
             db.close()
             return redirect(url_for("home"))
