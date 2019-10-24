@@ -33,8 +33,13 @@ def login(): #check credentials against the table and confirms if they are corre
 
 @app.route("/register", methods = ["POST"])
 def register(): #adds credentials to the users table and then redirects to the homepage
-    ops.insert2("users", request.form['username'], request.form['password']) 
-    return redirect(url_for("home"))
+    if (request.form['username'] == "" or request.form['password'] == ""):
+        flash("ERROR! Username and password cannot be blank")
+        flash("register error")
+        return redirect(url_for("root"))
+    else:
+        ops.insert("users", request.form['username'], request.form['password'])
+        return redirect(url_for("home"))
 
 if __name__ == "__main__":
     app.debug = True

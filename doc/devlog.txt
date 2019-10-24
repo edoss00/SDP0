@@ -85,5 +85,7 @@ It will return true if the user has edited that story before, and false if not
 
 huangT -- 2019-10-23 08:11
 continued working on app.py
-  worked on register route, adding a function to add the credentials to the users table 
+  worked on register route, adding a function to add the credentials to the users table
+  added error flashing under register to make sure none of the fields are blank
+  added the error flashing to the html file 
 removed data.db file

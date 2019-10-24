@@ -27,8 +27,8 @@ def insert(table, *params):
     end = ");"
     middle = ""
     for x in params[1:]:
-      in = ", {}"
-      put = in.format(x)
+      d = ", {}"
+      put = d.format(x)
       middle += put
     command = start + middle + end
     c.execute(command)
