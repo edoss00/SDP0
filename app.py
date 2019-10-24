@@ -20,10 +20,13 @@ def root(): #if user is logged in, redirect to the homepage, otherwise prompt us
 
 @app.route("/home")
 def home(): #display home page of website
-    return render_template(
-        "homepage.html",
-        user = session['user']
-    )
+    if 'user' in session:
+        return render_template(
+            "homepage.html",
+            user = session['user']
+        )
+    else:
+        return redirect(url_for("root"))
 
 @app.route("/logout")
 def logout(): #logs out user, return to login/register page
@@ -53,9 +56,6 @@ def login(): #check credentials against the table and confirms if they are corre
                     flash("ERROR! Incorrect password")
                     flash("invalid pass")
                     return redirect(url_for("root"))
-        #loginUser = c.execute(command, request.form['username'])
-        #return loginUser
-
 
 @app.route("/register", methods = ["POST"])
 def register(): #adds credentials to the users table and then redirects to the homepage
