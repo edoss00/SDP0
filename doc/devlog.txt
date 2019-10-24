@@ -89,3 +89,7 @@ continued working on app.py
   added error flashing under register to make sure none of the fields are blank
   added the error flashing to the html file 
 removed data.db file
+
+avrahamiB -- 2019-10-23 21:30
+Made insert take any number of parameters
+Encountered a problem when trying to call ops from app.py - to be fixed later
