@@ -101,3 +101,7 @@ continued working on app.py
   worked on login route, adding a function to check login input to credentials in users table
   added error flashing under login to make sure none of the fields are blank
   added try and except error handling to handle invalid password or username inputs
+
+williamL -- 2019-10-24 00:50
+Fixed the error in the code for register(). The register function now adds the
+inputs into a table, and logs the user into a session.
