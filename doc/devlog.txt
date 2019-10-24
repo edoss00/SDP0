@@ -91,3 +91,7 @@ continued working on app.py
   added the error flashing to the html file
   edited the home page html to include a welcome message
 removed data.db file
+
+avrahamiB -- 2019-10-23 21:30
+Made insert take any number of parameters
+Encountered a problem when trying to call ops from app.py - to be fixed later
