@@ -6,6 +6,13 @@
 {% endblock %}
 {% block content %}
   <h1> LOGIN </h1>
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      {% if (messages[1] == "invalid error") or (messages[1] == "invalid pass")%}
+        <h1> {{ messages[0] }} </h1>
+      {% endif %}
+    {% endif %}
+  {% endwith %}
   <form action = "/login", method = "POST">
     Enter your username:
     <input type = "text" name = "username"> <br><br>

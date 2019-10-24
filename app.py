@@ -32,27 +32,53 @@ def logout(): #logs out user, return to login/register page
 
 @app.route("/login", methods = ["POST"])
 def login(): #check credentials against the table and confirms if they are correct
-    return "hello"
+    if (request.form['username'] == "" or request.form['password'] == ""):
+        flash("ERROR! Invalid username and password")
+        flash("invalid error")
+        return redirect(url_for("root"))
+    else:
+        dbfile = "holding.db"
+        db = sqlite3.connect(dbfile)
+        c = db.cursor()
+        command = "SELECT username FROM users WHERE username = ?;"
+        listUsers = c.execute(command, request.form['username'])
+        for bar in listUsers:
+            getPass = "SELECT password FROM users WHERE username = ?;"
+            listPass = c.execute(getPass, bar[0])
+            for p in listPass:
+                if request.form['password'] == p[0]:
+                    session['user'] = request.form['username']
+                    return redirect(url_for("home"))
+                else:
+                    flash("ERROR! Incorrect password")
+                    flash("invalid pass")
+                    return redirect(url_for("root"))
+        #loginUser = c.execute(command, request.form['username'])
+        #return loginUser
+
 
 @app.route("/register", methods = ["POST"])
 def register(): #adds credentials to the users table and then redirects to the homepage
-    global user_id
-    dbfile = "holding.db"
-
-    db = sqlite3.connect(dbfile)
-    c = db.cursor()
-
-    if (request.form['username'] == "" or request.form['password'] == ""):
-        flash("ERROR! Username and password cannot be blank")
+    try:
+        global user_id
+        if (request.form['username'] == "" or request.form['password'] == ""):
+            flash("ERROR! Username and password cannot be blank")
+            flash("register error")
+            return redirect(url_for("root"))
+        else:
+            dbfile = "holding.db"
+            db = sqlite3.connect(dbfile)
+            c = db.cursor()
+            c.execute(ops.insert('users', user_id, request.form['username'], request.form['password']))
+            session['user'] = request.form['username']
+            user_id += 1
+            db.commit()
+            db.close()
+            return redirect(url_for("home"))
+    except:
+        flash("ERROR! Invalid characters")
         flash("register error")
         return redirect(url_for("root"))
-    else:
-        c.execute(ops.insert('users', user_id, request.form['username'], request.form['password']))
-        session['user'] = request.form['username']
-        user_id += 1
-        db.commit()
-        db.close()
-        return redirect(url_for("home"))
 
 if __name__ == "__main__":
     app.debug = True
