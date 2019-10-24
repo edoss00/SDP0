@@ -5,12 +5,7 @@
   {% endblock %}
 {% endblock %}
 {% block content %}
-  {% with messages = get_flashed_messages() %}
-    {% if messages %}
-      <h1> {{ messages[0] }} </h1>
-      <h1> {{ messages[1] }} </h1>
-    {% endif %}
-  {% endwith %}
+  Welcome {{ user }} !
   <form action = "/logout">
     <input type = "submit" name = "sub3" value = "logout"> <br>
   </form>

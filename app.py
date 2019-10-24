@@ -10,7 +10,7 @@ app = Flask(__name__)
 app.secret_key = "adsfgt"
 
 session = {}
-
+user_id = 0
 @app.route("/")
 def root(): #if user is logged in, redirect to the homepage, otherwise prompt user to login or register
     if 'user' in session:
@@ -20,7 +20,10 @@ def root(): #if user is logged in, redirect to the homepage, otherwise prompt us
 
 @app.route("/home")
 def home(): #display home page of website
-    return render_template("homepage.html")
+    return render_template(
+        "homepage.html",
+        user = session['user']
+    )
 
 @app.route("/logout")
 def logout(): #logs out user, return to login/register page
@@ -33,12 +36,22 @@ def login(): #check credentials against the table and confirms if they are corre
 
 @app.route("/register", methods = ["POST"])
 def register(): #adds credentials to the users table and then redirects to the homepage
+    global user_id
+    dbfile = "holding.db"
+
+    db = sqlite3.connect(dbfile)
+    c = db.cursor()
+
     if (request.form['username'] == "" or request.form['password'] == ""):
         flash("ERROR! Username and password cannot be blank")
         flash("register error")
         return redirect(url_for("root"))
     else:
-        ops.insert("users", request.form['username'], request.form['password'])
+        c.execute(ops.insert('users', user_id, request.form['username'], request.form['password']))
+        session['user'] = request.form['username']
+        user_id += 1
+        db.commit()
+        db.close()
         return redirect(url_for("home"))
 
 if __name__ == "__main__":

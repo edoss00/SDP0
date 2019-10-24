@@ -31,7 +31,7 @@ def insert(table, *params):
       put = d.format(x)
       middle += put
     command = start + middle + end
-    c.execute(command)
+    return command
 
 
 def has_edited(user, story):
