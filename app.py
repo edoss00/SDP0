@@ -35,7 +35,7 @@ def logout(): #logs out user, return to login/register page
 
 @app.route("/login", methods = ["POST"])
 def login(): #check credentials against the table and confirms if they are correct
-    if (request.form['username'] == "" or request.form['password'] == ""):
+    if (request.form['username'] == "" or request.form['password'] == ""): 
         flash("ERROR! Invalid username and password")
         flash("invalid error")
         return redirect(url_for("root"))
@@ -43,49 +43,53 @@ def login(): #check credentials against the table and confirms if they are corre
         dbfile = "holding.db"
         db = sqlite3.connect(dbfile)
         c = db.cursor()
-        command = "SELECT username FROM users WHERE username = ?;"
-        listUsers = c.execute(command, request.form['username'])
-        for bar in listUsers:
-            getPass = "SELECT password FROM users WHERE username = ?;"
-            listPass = c.execute(getPass, bar[0])
+        command = "SELECT username FROM users WHERE username = \"{}\";"
+        listUsers = c.execute(command.format(request.form['username']))
+        bar = list(enumerate(listUsers))
+        if len(bar) > 0:
+            getPass = "SELECT password FROM users WHERE username = \"{}\";"
+            listPass = c.execute(getPass.format(bar[0][1][0]))
             for p in listPass:
                 if request.form['password'] == p[0]:
                     session['user'] = request.form['username']
                     return redirect(url_for("home"))
                 else:
                     flash("ERROR! Incorrect password")
-                    flash("invalid pass")
+                    flash("invalid error")
                     return redirect(url_for("root"))
+        else:
+            flash("ERROR! Incorrect username")
+            flash("invalid error")
+            return redirect(url_for("root"))
 
 @app.route("/register", methods = ["POST"])
 def register(): #adds credentials to the users table and then redirects to the homepage
-    try:
-        if (request.form['username'] == "" or request.form['password'] == ""):
-            flash("ERROR! Username and password cannot be blank")
+    #try:
+    if (request.form['username'] == "" or request.form['password'] == ""):
+        flash("ERROR! Username and password cannot be blank")
+        flash("register error")
+        return redirect(url_for("root"))
+    else:
+        dbfile = "holding.db"
+        db = sqlite3.connect(dbfile)
+        c = db.cursor()
+        command = "SELECT username FROM users WHERE username = \"{}\";"
+        newUser = c.execute(command.format(request.form['username']))
+        if len(list(enumerate(newUser))) > 0:
+            flash("Username is already taken. Please choose another one.")
             flash("register error")
             return redirect(url_for("root"))
         else:
-            dbfile = "holding.db"
-            db = sqlite3.connect(dbfile)
-            c = db.cursor()
-            user = []
-            newUser = c.execute("SELECT username FROM users WHERE username = ?;", "'" + request.form['username'] + "'")
-            #for new in newUser:
-            #    user.append(new)
-            #print(user)
-            # if (len(user) > 0):
-            #     flash("Username is already taken. Please choose another one.")
-            #     return redirect(url_for("root"))
-            # else:
+            user_id = getTableLen("users")
             c.execute("INSERT into users VALUES(?, ?, ?);", (user_id, request.form['username'], request.form['password']))
             session['user'] = request.form['username']
             db.commit()
             db.close()
             return redirect(url_for("home"))
-    except:
-        flash("ERROR! Invalid characters")
-        flash("register error")
-        return redirect(url_for("root"))
+    #except:
+    #    flash("ERROR! Invalid characters")
+    #    flash("register error")
+    #    return redirect(url_for("root"))
 
 def has_edited(user, story):
     outline = "SELECT * FROM edits WHERE user_id = {} AND story_id = {};"

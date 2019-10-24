@@ -8,7 +8,7 @@
   <h1> LOGIN </h1>
   {% with messages = get_flashed_messages() %}
     {% if messages %}
-      {% if (messages[1] == "invalid error") or (messages[1] == "invalid pass")%}
+      {% if messages[1] == "invalid error"%}
         <h1> {{ messages[0] }} </h1>
       {% endif %}
     {% endif %}
