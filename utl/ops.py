@@ -23,20 +23,18 @@ def update(user, story, edit):
     
 
 
-def insert(table, param1, param2):
-    outline = "INSERT INTO {} VALUES({}, {});"
-    command = outline.format(table, param1, param2)
+def insert(table, *params):
+    begin = "INSERT INTO {} VALUES ({}"
+    start = begin.format(table, params[0])
+    end = ");"
+    middle = ""
+    for x in params[1:]:
+      in = ", {}"
+      put = in.format(x)
+      middle += put
+    command = start + middle + end
     c.execute(command)
 
-def insert(table, param1, param2, param3):
-    outline = "INSERT INTO {} VALUES({}, {}, {});"
-    command = outline.format(table, param1, param2, param3)
-    c.execute(command)
-
-def insert(table, param1, param2, param3, param4):
-    outline = "INSERT INTO {} VALUES({}, {}, {}, {});"
-    command = outline.format(table, param1, param2, param3, param4)
-    c.execute(command)
 
 
 
