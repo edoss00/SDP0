@@ -15,11 +15,14 @@ def update(user, story, edit):
     for bar in q:
       current = bar[0] + edit
     outline = "UPDATE stories SET story_text = {}, last_edit = {} WHERE story_id = {};"
+    ans = []
     command = outline.format(current, edit, story)
+    command = ans[0]
 
     outline = "INSERT INTO edits VALUES ({}, {}, {});"
     command = outline.format(user, story, edit)
-    c.execute(command)
+    command = ans[1]
+    return ans
 
 def insert(table, *params):
     begin = "INSERT INTO {} VALUES ({}"
@@ -33,14 +36,6 @@ def insert(table, *params):
     command = start + middle + end
     return command
 
-
-def has_edited(user, story):
-    outline = "SELECT * FROM edits WHERE user_id = {} AND story_id = {};"
-    command = outline.format(user, story)
-    q = c.execute(command)
-    for bar in q:
-      return True
-    return False
 
 db.commit()
 db.close()

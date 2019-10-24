@@ -83,6 +83,14 @@ def register(): #adds credentials to the users table and then redirects to the h
         flash("register error")
         return redirect(url_for("root"))
 
+def has_edited(user, story):
+    outline = "SELECT * FROM edits WHERE user_id = {} AND story_id = {};"
+    command = outline.format(user, story)
+    q = c.execute(command)
+    for bar in q:
+      return True
+    return False
+
 if __name__ == "__main__":
     app.debug = True
     app.run()
