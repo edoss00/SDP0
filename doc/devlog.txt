@@ -129,3 +129,6 @@ edited app.py, homepage.html, and newpage.html
   cleaned up the function to add stories
   updated newpage.html with error flashing
   on home page now lists the stories, and looks more readable
+
+tylerH -- 2019-10-25 08:41
+fixed the cancel button 
