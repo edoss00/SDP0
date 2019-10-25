@@ -4,7 +4,6 @@
 #2019-10-28
 
 from flask import Flask, render_template, request, session, redirect, url_for, flash
-from utl import ops
 import sqlite3
 app = Flask(__name__)
 app.secret_key = "adsfgt"
