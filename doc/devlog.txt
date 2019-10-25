@@ -126,7 +126,7 @@ updated the README file to provide instructions on how to run our project
 
 benjaminA -- 2019-10-24 19:00
 Allowed the user to create a new story
-Showed all stories (whether edited by user or not) in homepage
+Showed the names of all stories (whether edited by user or not) in homepage
 Fixed naming on devlog
 
 tylerH -- 2019-10-24 21:57
@@ -142,3 +142,7 @@ edited app.py, newpage.html
 
 benjaminA -- 2019-10-25 09:25
 Deleted ops.py, implemented functions inside app.py instead of calling ops
+
+benjaminA -- 2019-10-25 17:10
+Added links from each story title on the homepage to their separate page
+On each story's page, the full text is displayed, and there is an option to return home
