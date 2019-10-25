@@ -5,13 +5,15 @@
   {% endblock %}
 {% endblock %}
 {% block content %}
-  <form action = "/newcheck", methods = "POST">
-    <input type = "text" name = "title" value = "Title of story"> <br>
-    <input type = "text" name = "story" value = "Story beginning"> <br>
+  <form action = "/newcheck", method = "POST">
+    Title of story:
+    <input type = "text" name = "title"> <br>
+    Story beginning:
+    <input type = "text" name = "story"> <br>
     <input type = "submit" name = "submit" value = "Submit">
   </form>
   <br><br>
-  <form action = "/", methods = "POST">
+  <form action = "/", method = "POST">
     <input type = "submit" name = "cancel" value = "Cancel">
   </form>
 {% endblock %}
