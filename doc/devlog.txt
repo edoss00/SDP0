@@ -131,4 +131,6 @@ edited app.py, homepage.html, and newpage.html
   on home page now lists the stories, and looks more readable
 
 tylerH -- 2019-10-25 08:41
-fixed the cancel button 
+edited app.py, newpage.html
+  fixed the cancel button on newpage.html
+  fixed the create story function to add the correct story_id to edits table
