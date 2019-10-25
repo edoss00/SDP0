@@ -116,7 +116,7 @@ def addStory(): #checks if the story exists and registers the story if it does n
         for bar in q:
             id = bar[0]
         command = "INSERT INTO edits VALUES(?, ?);"
-        c.execute(command, (id, getTableLen("stories") - 1))
+        c.execute(command, (id, getTableLen("stories")))
     db.commit()
     db.close()
     return redirect(url_for("home"))
