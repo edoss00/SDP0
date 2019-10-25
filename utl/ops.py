@@ -24,7 +24,10 @@ def insert(table, *params):
     end = ");"
     middle = ""
     for x in params[1:]:
-      d = ", {}"
+      if table == 'edits':
+        d = ", {}"
+      else:
+        d = ", \"{}\""
       put = d.format(x)
       middle += put
     command = start + middle + end

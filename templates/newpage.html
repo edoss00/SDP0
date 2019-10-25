@@ -5,7 +5,7 @@
   {% endblock %}
 {% endblock %}
 {% block content %}
-  <form action = "/newcheck", method = "POST">
+  <form action = "/newcheck", method = "GET">
     Title of story:
     <input type = "text" name = "title"> <br>
     Story beginning:
@@ -13,7 +13,7 @@
     <input type = "submit" name = "submit" value = "Submit">
   </form>
   <br><br>
-  <form action = "/", method = "POST">
+  <form action = "/", method = "GET">
     <input type = "submit" name = "cancel" value = "Cancel">
   </form>
 {% endblock %}
