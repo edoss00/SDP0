@@ -120,6 +120,18 @@ def addStory(): #checks if the story exists and registers the story if it does n
     db.close()
     return redirect(url_for("home"))
 
+@app.route("/read/<file>")
+def read(file):
+    dbfile = "holding.db"
+    db = sqlite3.connect(dbfile)
+    c = db.cursor()
+    command = "SELECT story_text FROM stories WHERE story_name = \"{}\""
+    q = c.execute(command.format(file))
+    text = ""
+    for bar in q:
+        text = bar[0]
+    return render_template("readonly.html", name = file, story = text)
+
 def has_edited(user, story):
     outline = "SELECT * FROM edits WHERE username = {} AND story_id = {};"
     command = outline.format(user, story)

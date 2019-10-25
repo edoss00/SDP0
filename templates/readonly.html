@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block header %}
+  {% block title %}
+    <title> {{name}} </title>
+  {% endblock %}
+{% endblock %}
+{% block content %}
+  {{story}}
+  <br><br>
+  <form action = "/home", method = "GET">
+    <input type = "submit" name = "cancel" value = "Return home">
+  </form>
+{% endblock %}
+{% block footer %}
+{% endblock %}
