@@ -108,7 +108,7 @@ def register(): #adds credentials to the users table and then redirects to the h
 def create(): #lets the user create a new story
     return render_template("newpage.html")
 
-@app.route("/newcheck")
+@app.route("/newcheck", methods = ["POST"])
 def unique(): #checks if the story exists and registers the story if it does not yet
     dbfile = "holding.db"
     db = sqlite3.connect(dbfile)
@@ -119,9 +119,10 @@ def unique(): #checks if the story exists and registers the story if it does not
         flash("Title has already been taken. Please choose another one.")
         return redirect(url_for("create"))
     else:
-        command = ops.insert(stories, getTableLen(stories), request.form['title'], request.form['story'], request.form['story'])
-        c.execute(command)
-        q = c.execute("SELECT user_id FROM users WHERE username = \"{}\"".format(session['user']))
+        story_id = getTableLen("stories")
+        c.execute("INSERT INTO stories VALUES(?, ?, ?, ?);", (story_id, request.form['title'], request.form['story'], request.form['story']))
+        command = "SELECT user_id FROM users WHERE username = \"{}\";"
+        q = c.execute(command.format(session['user']))
         id = -1
         for bar in q:
             id = bar[0]
@@ -129,10 +130,7 @@ def unique(): #checks if the story exists and registers the story if it does not
         c.execute(command)
     db.commit()
     db.close()
-    return redirect(url_for("home")) 
-
-
-
+    return redirect(url_for("home"))
 
 def has_edited(user, story):
     outline = "SELECT * FROM edits WHERE username = {} AND story_id = {};"
