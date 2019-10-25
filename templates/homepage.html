@@ -6,17 +6,16 @@
 {% endblock %}
 {% block content %}
   Welcome {{ user }} !
-  <form action = "/logout">
-    <input type = "submit" name = "sub3" value = "logout"> <br>
-  </form>
-  <br><br>
-  <h1>STORIES</h1><br>
+  <h1><ol>STORIES</ol></h1>
   {% for element in storyName %}
-    {{element}}
+    <li> {{element}} </li>
   {% endfor %}
-  <br><br><br>
+  <br>
   <form action = "/create">
     <input type = "submit" name = "makenew" value = "Create new story">
+  </form>
+  <form action = "/logout">
+    <input type = "submit" name = "sub3" value = "logout">
   </form>
 {% endblock %}
 {% block footer %}

@@ -20,23 +20,11 @@ def root(): #if user is logged in, redirect to the homepage, otherwise prompt us
 
 @app.route("/home")
 def home(): #display home page of website
-    def storyNames():
-        dbfile = "holding.db"
-        db = sqlite3.connect(dbfile)
-        c = db.cursor()
-        command = "SELECT story_name FROM stories"
-        storyList = c.execute(command)
-        list = []
-        for story in storyList:
-            list.append(story)
-        db.commit()
-        db.close()
-        return list
     if 'user' in session:
         return render_template(
             "homepage.html",
             user = session['user'],
-            storyName = storyNames()
+            storyName = getStories()
         )
     else:
         return redirect(url_for("root"))
@@ -108,32 +96,27 @@ def register(): #adds credentials to the users table and then redirects to the h
 def create(): #lets the user create a new story
     return render_template("newpage.html")
 
-@app.route("/newcheck", methods = ["POST"])
-def unique(): #checks if the story exists and registers the story if it does not yet
+@app.route("/add", methods = ["POST"])
+def addStory(): #checks if the story exists and registers the story if it does not yet
     dbfile = "holding.db"
     db = sqlite3.connect(dbfile)
     c = db.cursor()
     command = "SELECT story_name FROM stories WHERE story_name = \"{}\";"
-    sameStory = c.execute(command.format(request.args['title']))
+    sameStory = c.execute(command.format(request.form['title']))
     if len(list(enumerate(sameStory))) > 0:
         flash("Title has already been taken. Please choose another one.")
         return redirect(url_for("create"))
     else:
-<<<<<<< HEAD
         story_id = getTableLen("stories")
-        c.execute("INSERT INTO stories VALUES(?, ?, ?, ?);", (story_id, request.form['title'], request.form['story'], request.form['story']))
+        command = "INSERT INTO stories VALUES(?, ?, ?, ?);"
+        c.execute(command, (story_id, request.form['title'], request.form['story'], request.form['story']))
         command = "SELECT user_id FROM users WHERE username = \"{}\";"
         q = c.execute(command.format(session['user']))
-=======
-        command = ops.insert('stories', getTableLen('stories'), request.args['title'], request.args['story'], request.args['story'])
-        c.execute(command)
-        q = c.execute("SELECT user_id FROM users WHERE username = \"{}\"".format(session['user']))
->>>>>>> 1eaaf63aeaf245d22b1cb8e430c60ace0701722a
         id = -1
         for bar in q:
             id = bar[0]
-        command = ops.insert('edits', id, getTableLen('stories') - 1)
-        c.execute(command)
+        command = "INSERT INTO edits VALUES(?, ?);"
+        c.execute(command, (id, getTableLen("stories") - 1))
     db.commit()
     db.close()
     return redirect(url_for("home"))
@@ -156,6 +139,19 @@ def getTableLen(tbl):
     for line in q:
         count += 1
     return count
+
+def getStories():
+    dbfile = "holding.db"
+    db = sqlite3.connect(dbfile)
+    c = db.cursor()
+    command = "SELECT story_name FROM stories;"
+    storyList = c.execute(command)
+    list = []
+    for story in storyList:
+        list.append(story[0])
+    db.commit()
+    db.close()
+    return list
 
 if __name__ == "__main__":
     app.debug = True

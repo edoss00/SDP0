@@ -123,3 +123,9 @@ made the method for printing the list of stories on the home page
 
 williamL -- 2019-10-24 18:06
 updated the README file to provide instructions on how to run our project
+
+tylerH -- 2019-10-24 21:57
+edited app.py, homepage.html, and newpage.html
+  cleaned up the function to add stories
+  updated newpage.html with error flashing
+  on home page now lists the stories, and looks more readable

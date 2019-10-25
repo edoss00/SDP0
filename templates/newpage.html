@@ -5,7 +5,14 @@
   {% endblock %}
 {% endblock %}
 {% block content %}
-  <form action = "/newcheck", method = "GET">
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      {% if messages %}
+        <h1> {{ messages[0] }} </h1>
+      {% endif %}
+    {% endif %}
+  {% endwith %}
+  <form action = "/add", method = "POST">
     Title of story:
     <input type = "text" name = "title"> <br>
     Story beginning:
@@ -13,7 +20,7 @@
     <input type = "submit" name = "submit" value = "Submit">
   </form>
   <br><br>
-  <form action = "/", method = "GET">
+  <form action = "/", method = "POST">
     <input type = "submit" name = "cancel" value = "Cancel">
   </form>
 {% endblock %}
