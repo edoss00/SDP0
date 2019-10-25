@@ -114,19 +114,25 @@ def unique(): #checks if the story exists and registers the story if it does not
     db = sqlite3.connect(dbfile)
     c = db.cursor()
     command = "SELECT story_name FROM stories WHERE story_name = \"{}\";"
-    sameStory = c.execute(command.format(request.form['title']))
+    sameStory = c.execute(command.format(request.args['title']))
     if len(list(enumerate(sameStory))) > 0:
         flash("Title has already been taken. Please choose another one.")
         return redirect(url_for("create"))
     else:
+<<<<<<< HEAD
         story_id = getTableLen("stories")
         c.execute("INSERT INTO stories VALUES(?, ?, ?, ?);", (story_id, request.form['title'], request.form['story'], request.form['story']))
         command = "SELECT user_id FROM users WHERE username = \"{}\";"
         q = c.execute(command.format(session['user']))
+=======
+        command = ops.insert('stories', getTableLen('stories'), request.args['title'], request.args['story'], request.args['story'])
+        c.execute(command)
+        q = c.execute("SELECT user_id FROM users WHERE username = \"{}\"".format(session['user']))
+>>>>>>> 1eaaf63aeaf245d22b1cb8e430c60ace0701722a
         id = -1
         for bar in q:
             id = bar[0]
-        command = ops.insert(edits, id, getTableLen(stories) - 1, request.form['story'])
+        command = ops.insert('edits', id, getTableLen('stories') - 1)
         c.execute(command)
     db.commit()
     db.close()
