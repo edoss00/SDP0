@@ -4,7 +4,6 @@
 #2019-10-28
 
 from flask import Flask, render_template, request, session, redirect, url_for, flash
-from utl import ops
 import sqlite3
 app = Flask(__name__)
 app.secret_key = "adsfgt"
@@ -120,6 +119,18 @@ def addStory(): #checks if the story exists and registers the story if it does n
     db.commit()
     db.close()
     return redirect(url_for("home"))
+
+@app.route("/read/<file>")
+def read(file):
+    dbfile = "holding.db"
+    db = sqlite3.connect(dbfile)
+    c = db.cursor()
+    command = "SELECT story_text FROM stories WHERE story_name = \"{}\""
+    q = c.execute(command.format(file))
+    text = ""
+    for bar in q:
+        text = bar[0]
+    return render_template("readonly.html", name = file, story = text)
 
 def has_edited(user, story):
     outline = "SELECT * FROM edits WHERE username = {} AND story_id = {};"

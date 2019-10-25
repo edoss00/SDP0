@@ -8,7 +8,9 @@
   Welcome {{ user }} !
   <h1><ol>STORIES</ol></h1>
   {% for element in storyName %}
-    <li> {{element}} </li>
+    <li>
+      <a href="read/{{element}}">{{element}}</a>
+    </li>
   {% endfor %}
   <br>
   <form action = "/create">

@@ -1,6 +1,6 @@
 DEVLOG for Team Fine Pizza
 
-avrahamiB -- 2019-10-18 09:25
+benjaminA -- 2019-10-18 09:25
 Creation of necessary files - README, devlog, database(empty), utl directory
 
 williamL -- 2019-10-20 21:20
@@ -51,7 +51,7 @@ Cross Join - given table A with k rows and table B with n rows, a set is
           FROM A
           CROSS JOIN B;
 
-avrahamiB -- 2019-10-21 16:50
+benjaminA -- 2019-10-21 16:50
 Programming Sucks
 
 In the real world, most programs are broken most of the time, due to various factors, but especially the lack of coordination.
@@ -62,20 +62,20 @@ What can we do about this?
 
 (If you thought that was a multiple choice question, the answer is 4. All of the above)
 
-avrahamiB -- 2019-10-22 09:25
+benjaminA -- 2019-10-22 09:25
 Created a function to facilitate inserting rows into a table
 Usage:
   insert(<table_name>, <params>)
 It can handle 2, 3, or 4 parameters, based on the number of columns in the given table
 
-avrahamiB -- 2019-10-22 18:40
+benjaminA -- 2019-10-22 18:40
 Added new table and adjusted parameters of other tables, as shown on design doc.
 
 Created a function to update a table when someone adds something new to a story
 Usage:
   update(<user_id>, story_id>, <added text>)
 
-avrahamiB -- 2019-10-23 09:25
+benjaminA -- 2019-10-23 09:25
 Made update command also change the edits table
 
 Created a function to tell whether a person has edited a particular story
@@ -92,7 +92,7 @@ continued working on app.py
   edited the home page html to include a welcome message
 removed data.db file
 
-avrahamiB -- 2019-10-23 21:30
+benjaminA -- 2019-10-23 21:30
 Made insert take any number of parameters
 Encountered a problem when trying to call ops from app.py - to be fixed later
 
@@ -124,6 +124,11 @@ made the method for printing the list of stories on the home page
 williamL -- 2019-10-24 18:06
 updated the README file to provide instructions on how to run our project
 
+benjaminA -- 2019-10-24 19:00
+Allowed the user to create a new story
+Showed the names of all stories (whether edited by user or not) in homepage
+Fixed naming on devlog
+
 tylerH -- 2019-10-24 21:57
 edited app.py, homepage.html, and newpage.html
   cleaned up the function to add stories
@@ -134,3 +139,10 @@ tylerH -- 2019-10-25 08:41
 edited app.py, newpage.html
   fixed the cancel button on newpage.html
   fixed the create story function to add the correct story_id to edits table
+
+benjaminA -- 2019-10-25 09:25
+Deleted ops.py, implemented functions inside app.py instead of calling ops
+
+benjaminA -- 2019-10-25 17:10
+Added links from each story title on the homepage to their separate page
+On each story's page, the full text is displayed, and there is an option to return home
