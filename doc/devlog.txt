@@ -139,3 +139,6 @@ tylerH -- 2019-10-25 08:41
 edited app.py, newpage.html
   fixed the cancel button on newpage.html
   fixed the create story function to add the correct story_id to edits table
+
+benjaminA -- 2019-10-25 09:25
+Deleted ops.py, implemented functions inside app.py instead of calling ops
