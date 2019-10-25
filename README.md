@@ -22,7 +22,7 @@ $ . hero/bin/activate               #activates virtual environment
 Running the project:
 1. Clone the repository
 ```
-git clone [insert HTTPS url to repo]
+git clone [insert HTTPS url of repo]
 ```
 2. Run the main python program (app.py)
 ```
