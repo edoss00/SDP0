@@ -5,13 +5,13 @@ DB_FILE = "holding.db"
 db = sqlite3.connect(DB_FILE) #open if file exists, otherwise create
 c = db.cursor()               #facilitate db ops
 
-command = "DROP TABLE IF EXISTS users" # delete table
+command = "DROP TABLE IF EXISTS users;" # delete table
 c.execute(command)
 
-command = "DROP TABLE IF EXISTS stories" # delete table
+command = "DROP TABLE IF EXISTS stories;" # delete table
 c.execute(command)
 
-command = "DROP TABLE IF EXISTS edits" # delete table
+command = "DROP TABLE IF EXISTS edits;" # delete table
 c.execute(command)
 
 command = "CREATE TABLE IF NOT EXISTS users (user_id INTEGER, username TEXT, password TEXT);" # create table
