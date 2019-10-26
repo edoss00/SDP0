@@ -22,3 +22,6 @@ c.execute(command)    # run SQL statement
 
 command = "CREATE TABLE IF NOT EXISTS edits (user_id INTEGER, story_id INTEGER);" # create table
 c.execute(command)    # run SQL statement
+
+db.commit()
+db.close()
