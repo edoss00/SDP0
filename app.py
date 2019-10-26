@@ -10,7 +10,6 @@ app.secret_key = "adsfgt"
 
 session = {}
 currentStoryId = -1
-currentStoryName = ""
 
 @app.route("/")
 def root(): #if user is logged in, redirect to the homepage, otherwise prompt user to login or register
@@ -22,8 +21,7 @@ def root(): #if user is logged in, redirect to the homepage, otherwise prompt us
 @app.route("/home")
 def home(): #display home page of website
     if 'user' in session:
-        global currentStoryId, currentStoryName
-        currentStoryName = ""
+        global currentStoryId
         currentStoryId = -1
         return render_template(
             "homepage.html",
@@ -146,11 +144,10 @@ def read(file):
 
 @app.route("/add/<file>")
 def add(file):
-    global currentStoryId, currentStoryName
+    global currentStoryId
     dbfile = "holding.db"
     db = sqlite3.connect(dbfile)
     c = db.cursor()
-    currentStoryName = file
     command = "SELECT story_id FROM stories WHERE story_name = \"{}\";"
     q = c.execute(command.format(file))
     for id in q:
