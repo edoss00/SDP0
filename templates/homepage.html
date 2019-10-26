@@ -6,12 +6,22 @@
 {% endblock %}
 {% block content %}
   Welcome {{ user }} !
-  <h1><ol>STORIES</ol></h1>
+  <h1>STORIES</h1>
+  <ol>
   {% for element in storyName %}
     <li>
       <a href="read/{{element}}">{{element}}</a>
     </li>
   {% endfor %}
+  </ol>
+  <h1>EDIT STORIES</h1>
+  <ol>
+  {% for element in toEdit %}
+    <li>
+      <a href="read/{{element}}">{{element}}</a>
+    </li>
+  {% endfor %}
+  </ol>
   <br>
   <form action = "/create">
     <input type = "submit" name = "makenew" value = "Create new story">

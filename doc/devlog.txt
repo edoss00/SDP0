@@ -146,3 +146,9 @@ Deleted ops.py, implemented functions inside app.py instead of calling ops
 benjaminA -- 2019-10-25 17:10
 Added links from each story title on the homepage to their separate page
 On each story's page, the full text is displayed, and there is an option to return home
+
+tylerH -- 2019-10-25 19:20
+worked on app.py and homepage.html
+  added some comments on app.py
+  added a section for users to edit stories in homepage.html
+  added a function to get user id 

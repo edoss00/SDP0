@@ -97,28 +97,28 @@ def create(): #lets the user create a new story
 
 @app.route("/add", methods = ["POST"])
 def addStory(): #checks if the story exists and registers the story if it does not yet
-    dbfile = "holding.db"
-    db = sqlite3.connect(dbfile)
-    c = db.cursor()
-    command = "SELECT story_name FROM stories WHERE story_name = \"{}\";"
-    sameStory = c.execute(command.format(request.form['title']))
-    if len(list(enumerate(sameStory))) > 0:
-        flash("Title has already been taken. Please choose another one.")
+    if request.form['title'] == "" or request.form['story'] == "": #if either title or story is empty, return error
+        flash("ERROR! Title or story cannot be blank")
         return redirect(url_for("create"))
     else:
-        story_id = getTableLen("stories")
-        command = "INSERT INTO stories VALUES(?, ?, ?, ?);"
-        c.execute(command, (story_id, request.form['title'], request.form['story'], request.form['story']))
-        command = "SELECT user_id FROM users WHERE username = \"{}\";"
-        q = c.execute(command.format(session['user']))
-        id = -1
-        for bar in q:
-            id = bar[0]
-        command = "INSERT INTO edits VALUES(?, ?);"
-        c.execute(command, (id, getTableLen("stories")))
-    db.commit()
-    db.close()
-    return redirect(url_for("home"))
+        dbfile = "holding.db"
+        db = sqlite3.connect(dbfile)
+        c = db.cursor()
+        command = "SELECT story_name FROM stories WHERE story_name = \"{}\";"
+        sameStory = c.execute(command.format(request.form['title']))
+        if len(list(enumerate(sameStory))) > 0: #if story exists return an error
+            flash("Title has already been taken. Please choose another one.")
+            return redirect(url_for("create"))
+        else: #else add to table of stories
+            story_id = getTableLen("stories")
+            command = "INSERT INTO stories VALUES(?, ?, ?, ?);"
+            c.execute(command, (story_id, request.form['title'], request.form['story'], request.form['story']))
+            id = getUserID()
+            command = "INSERT INTO edits VALUES(?, ?);"
+            c.execute(command, (id, getTableLen("stories")))
+        db.commit()
+        db.close()
+        return redirect(url_for("home"))
 
 @app.route("/read/<file>")
 def read(file):
@@ -140,7 +140,7 @@ def has_edited(user, story):
       return True
     return False
 
-def getTableLen(tbl):
+def getTableLen(tbl): #returns the length of a table
     dbfile = "holding.db"
     db = sqlite3.connect(dbfile)
     c = db.cursor()
@@ -151,18 +151,33 @@ def getTableLen(tbl):
         count += 1
     return count
 
-def getStories():
+def getStories(): #gets all the story names a user is able to read from the stories table
     dbfile = "holding.db"
     db = sqlite3.connect(dbfile)
     c = db.cursor()
-    command = "SELECT story_name FROM stories;"
-    storyList = c.execute(command)
-    list = []
-    for story in storyList:
-        list.append(story[0])
+    id = getUserID()
+    command = "SELECT story_id FROM edits WHERE user_id = \"{}\";"
+    print("id: " + str(id))
+    storyIdList = c.execute(command.format(id))
+    stories = []
+    for storyID in list(enumerate(storyIdList)):
+        command = "SELECT story_name FROM stories WHERE story_id = \"{}\";"
+        storyList = c.execute(command.format(storyID[1][0]))
+        for story in storyList:
+            stories.append(story[0])
     db.commit()
     db.close()
-    return list
+    return stories
+
+def getUserID(): #gets session user id from users table
+    dbfile = "holding.db"
+    db = sqlite3.connect(dbfile)
+    c = db.cursor()
+    command = "SELECT user_id FROM users WHERE username = \"{}\";"
+    q = c.execute(command.format(session['user']))
+    for bar in q:
+        return bar[0]
+
 
 if __name__ == "__main__":
     app.debug = True
