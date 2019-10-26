@@ -37,6 +37,8 @@ def home(): #display home page of website
 @app.route("/logout")
 def logout(): #logs out user, return to login/register page
     session.pop('user') #removes the user from session
+    flash("Logout Success")
+    flash("logout")
     return redirect(url_for("root"))
 
 @app.route("/login", methods = ["POST"])
@@ -181,7 +183,7 @@ def addToStory():
         story = c.execute(command.format(currentStoryId))
         updatedStory = ""
         for line in story:
-            updatedStory = line[0] + request.form['addition']
+            updatedStory = line[0] + " " + request.form['addition']
         command = "UPDATE stories SET story_text = \"{}\" WHERE story_id = {};"
         c.execute(command.format(updatedStory,currentStoryId))
         db.commit()

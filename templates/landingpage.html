@@ -5,6 +5,13 @@
   {% endblock %}
 {% endblock %}
 {% block content %}
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      {% if messages[1] == "logout" %}
+        <h1> {{ messages[0] }} </h1>
+      {% endif %}
+    {% endif %}
+  {% endwith %}
   <h1> LOGIN </h1>
   {% with messages = get_flashed_messages() %}
     {% if messages %}

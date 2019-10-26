@@ -165,3 +165,7 @@ created add.html
   this file loads the last edit of the story and allows for user to add to a story
   this file also has a button to return to home page
   added button to submit the additions
+
+tylerH -- 2019-10-25 22:19
+worked on app.py and landingpage.html
+  added a flash message for logout
