@@ -23,7 +23,8 @@ def home(): #display home page of website
         return render_template(
             "homepage.html",
             user = session['user'],
-            storyName = getStories()
+            storyName = getStories(),
+            storyEdit = getEditStories()
         )
     else:
         return redirect(url_for("root"))
@@ -130,7 +131,27 @@ def read(file):
     text = ""
     for bar in q:
         text = bar[0]
-    return render_template("readonly.html", name = file, story = text)
+    return render_template(
+        "readonly.html",
+        name = file,
+        story = text
+    )
+
+@app.route("/read/<file>")
+def read(file):
+    dbfile = "holding.db"
+    db = sqlite3.connect(dbfile)
+    c = db.cursor()
+    command = "SELECT story_text FROM stories WHERE story_name = \"{}\""
+    q = c.execute(command.format(file))
+    text = ""
+    for bar in q:
+        text = bar[0]
+    return render_template(
+        "readonly.html",
+        name = file,
+        story = text
+    )
 
 def has_edited(user, story):
     outline = "SELECT * FROM edits WHERE username = {} AND story_id = {};"
@@ -157,7 +178,6 @@ def getStories(): #gets all the story names a user is able to read from the stor
     c = db.cursor()
     id = getUserID()
     command = "SELECT story_id FROM edits WHERE user_id = \"{}\";"
-    print("id: " + str(id))
     storyIdList = c.execute(command.format(id))
     stories = []
     for storyID in list(enumerate(storyIdList)):
@@ -165,6 +185,26 @@ def getStories(): #gets all the story names a user is able to read from the stor
         storyList = c.execute(command.format(storyID[1][0]))
         for story in storyList:
             stories.append(story[0])
+    db.commit()
+    db.close()
+    return stories
+
+def getEditStories(): #gets all the stories that the user has not edited before
+    dbfile = "holding.db"
+    db = sqlite3.connect(dbfile)
+    c = db.cursor()
+    command = "SELECT story_name FROM stories;"
+    storyList = c.execute(command)
+    stories = []
+    for story in storyList:
+        stories.append(story[0])
+    command = "SELECT story_id FROM edits WHERE user_id = \"{}\";"
+    storyIdList = c.execute(command.format(id))
+    for storyID in list(enumerate(storyIdList)):
+        command = "SELECT story_name FROM stories WHERE story_id != \"{}\";"
+        storyList = c.execute(command.format(storyID[1][0]))
+        for story in storyList:
+            stories.pop(story[0])
     db.commit()
     db.close()
     return stories

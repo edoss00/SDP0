@@ -151,4 +151,6 @@ tylerH -- 2019-10-25 19:20
 worked on app.py and homepage.html
   added some comments on app.py
   added a section for users to edit stories in homepage.html
-  added a function to get user id 
+  added a function to get user id
+  updated the getStories function to only show stories that have been edited
+  added a function to show the stories that a user can edit
