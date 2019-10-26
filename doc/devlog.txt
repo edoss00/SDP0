@@ -153,4 +153,9 @@ worked on app.py and homepage.html
   added a section for users to edit stories in homepage.html
   added a function to get user id
   updated the getStories function to only show stories that have been edited
-  added a function to show the stories that a user can edit
+  added a function to show the stories that a user can add to
+  added a function to allow users to add to a story
+  updated the getCanAddToStories to show the correct stories that can be edited 
+created add.html
+  this file loads the last edit of the story and allows for user to add to a story
+  this file also has a button to return to home page

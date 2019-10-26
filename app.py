@@ -24,7 +24,7 @@ def home(): #display home page of website
             "homepage.html",
             user = session['user'],
             storyName = getStories(),
-            storyEdit = getEditStories()
+            storyAdd = getCanAddToStories()
         )
     else:
         return redirect(url_for("root"))
@@ -137,21 +137,28 @@ def read(file):
         story = text
     )
 
-@app.route("/read/<file>")
-def read(file):
+@app.route("/add/<file>")
+def add(file):
     dbfile = "holding.db"
     db = sqlite3.connect(dbfile)
     c = db.cursor()
-    command = "SELECT story_text FROM stories WHERE story_name = \"{}\""
+    command = "SELECT last_edit FROM stories WHERE story_name = \"{}\""
     q = c.execute(command.format(file))
     text = ""
     for bar in q:
         text = bar[0]
     return render_template(
-        "readonly.html",
+        "add.html",
         name = file,
         story = text
     )
+
+@app.route("/addToStory", methods = ["POST"])
+def addToStory():
+    dbfile = "holding.db"
+    db = sqlite3.connect(dbfile)
+    c = db.cursor()
+    return redirect(url_for("home"))
 
 def has_edited(user, story):
     outline = "SELECT * FROM edits WHERE username = {} AND story_id = {};"
@@ -189,7 +196,7 @@ def getStories(): #gets all the story names a user is able to read from the stor
     db.close()
     return stories
 
-def getEditStories(): #gets all the stories that the user has not edited before
+def getCanAddToStories(): #gets all the stories that the user has not edited before
     dbfile = "holding.db"
     db = sqlite3.connect(dbfile)
     c = db.cursor()
@@ -198,13 +205,13 @@ def getEditStories(): #gets all the stories that the user has not edited before
     stories = []
     for story in storyList:
         stories.append(story[0])
+    id = getUserID()
     command = "SELECT story_id FROM edits WHERE user_id = \"{}\";"
     storyIdList = c.execute(command.format(id))
+    shift = 0
     for storyID in list(enumerate(storyIdList)):
-        command = "SELECT story_name FROM stories WHERE story_id != \"{}\";"
-        storyList = c.execute(command.format(storyID[1][0]))
-        for story in storyList:
-            stories.pop(story[0])
+        stories.pop(storyID[1][0] - shift)
+        shift += 1
     db.commit()
     db.close()
     return stories

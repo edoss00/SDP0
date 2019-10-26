@@ -5,8 +5,8 @@
   {% endblock %}
 {% endblock %}
 {% block content %}
-  Welcome {{ user }} !
-  <h1>STORIES</h1>
+  <h1>Welcome {{ user }} !<h1>
+  <h2>STORIES</h2>
   <ol>
   {% for element in storyName %}
     <li>
@@ -14,11 +14,11 @@
     </li>
   {% endfor %}
   </ol>
-  <h1>EDIT STORIES</h1>
+  <h2>ADD TO STORIES</h2>
   <ol>
-  {% for element in storyEdit %}
+  {% for element in storyAdd %}
     <li>
-      <a href="edit/{{element}}">{{element}}</a>
+      <a href="add/{{element}}">{{element}}</a>
     </li>
   {% endfor %}
   </ol>
