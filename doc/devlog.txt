@@ -169,3 +169,8 @@ created add.html
 tylerH -- 2019-10-25 22:19
 worked on app.py and landingpage.html
   added a flash message for logout
+
+williamL -- 2019-10-26 15:17
+created reset.py
+  this file resets holding.db by deleting the tables and creating new ones
+  run this before testing the project
