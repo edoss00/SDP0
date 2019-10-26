@@ -155,7 +155,13 @@ worked on app.py and homepage.html
   updated the getStories function to only show stories that have been edited
   added a function to show the stories that a user can add to
   added a function to allow users to add to a story
-  updated the getCanAddToStories to show the correct stories that can be edited 
+  updated the getCanAddToStories to show the correct stories that can be edited
+  added a new global to keep track of the current story_id the user is editing
+  deleted has_edited function
+  created addToStory function to update the last_edit in tables and add the user to the edits tables
+  added error flashing to homepage.html
+  updated addToStory to update the story in the stories table
 created add.html
   this file loads the last edit of the story and allows for user to add to a story
   this file also has a button to return to home page
+  added button to submit the additions

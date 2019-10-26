@@ -9,6 +9,8 @@ app = Flask(__name__)
 app.secret_key = "adsfgt"
 
 session = {}
+currentStoryId = -1
+currentStoryName = ""
 
 @app.route("/")
 def root(): #if user is logged in, redirect to the homepage, otherwise prompt user to login or register
@@ -20,6 +22,9 @@ def root(): #if user is logged in, redirect to the homepage, otherwise prompt us
 @app.route("/home")
 def home(): #display home page of website
     if 'user' in session:
+        global currentStoryId, currentStoryName
+        currentStoryName = ""
+        currentStoryId = -1
         return render_template(
             "homepage.html",
             user = session['user'],
@@ -139,10 +144,16 @@ def read(file):
 
 @app.route("/add/<file>")
 def add(file):
+    global currentStoryId, currentStoryName
     dbfile = "holding.db"
     db = sqlite3.connect(dbfile)
     c = db.cursor()
-    command = "SELECT last_edit FROM stories WHERE story_name = \"{}\""
+    currentStoryName = file
+    command = "SELECT story_id FROM stories WHERE story_name = \"{}\";"
+    q = c.execute(command.format(file))
+    for id in q:
+        currentStoryId = id[0]
+    command = "SELECT last_edit FROM stories WHERE story_name = \"{}\";"
     q = c.execute(command.format(file))
     text = ""
     for bar in q:
@@ -155,18 +166,27 @@ def add(file):
 
 @app.route("/addToStory", methods = ["POST"])
 def addToStory():
-    dbfile = "holding.db"
-    db = sqlite3.connect(dbfile)
-    c = db.cursor()
-    return redirect(url_for("home"))
-
-def has_edited(user, story):
-    outline = "SELECT * FROM edits WHERE username = {} AND story_id = {};"
-    command = outline.format(user, story)
-    q = c.execute(command)
-    for bar in q:
-      return True
-    return False
+    if request.form['addition'] == "":
+        flash("ERROR! The addition field cannot be left blank.")
+        return redirect(url_for("home"))
+    else:
+        dbfile = "holding.db"
+        db = sqlite3.connect(dbfile)
+        c = db.cursor()
+        command = "UPDATE stories SET last_edit = \"{}\" WHERE story_id = {};"
+        c.execute(command.format(request.form['addition'],currentStoryId))
+        command = "INSERT INTO edits VALUES (? , ?);"
+        c.execute(command, (getUserID(),currentStoryId))
+        command = "SELECT story_text FROM stories WHERE story_id = {};"
+        story = c.execute(command.format(currentStoryId))
+        updatedStory = ""
+        for line in story:
+            updatedStory = line[0] + request.form['addition']
+        command = "UPDATE stories SET story_text = \"{}\" WHERE story_id = {};"
+        c.execute(command.format(updatedStory,currentStoryId))
+        db.commit()
+        db.close()
+        return redirect(url_for("home"))
 
 def getTableLen(tbl): #returns the length of a table
     dbfile = "holding.db"
