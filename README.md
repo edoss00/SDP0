@@ -29,21 +29,24 @@ git clone [insert HTTPS url of repo]
 python3 app.py
 ```
 3. Copy and paste the local url into your browser
-      - the landing page should load with the options to log in or register
+      - The landing page should load with the options to log in or register
 4. Register for an account
 5. Log in with your newly made account!
-      - the home page with the list of stories should load
-      - there should be options to log out, add story, or edit story
+      - The home page with the list of stories should load
+      - There should be options to log out, add story, or edit any
+        existing stories that you have no contributed to before
           - otherwise, click on any of the story names (which should be links) to read
 6. To add:
-      - You will be redirected to a page that prompts you to write a title and
-        the body of the text
-      - Click the add button to finalize your story
+      - Click "create new story" and you will be redirected to a page that
+        prompts you to write a title and the body of the story
+      - Click the submit button to finalize your story
    To edit:
-      - You will be prompted to choose which story to edit, which will then open
-        a page with editable text that you can change
-      - Click the change button to finalize your changes
+      - On the home page, you will be presented with a list of stories that
+        you can edit. Clicking on any of the stories will redirect you to a
+        page that shows the latest edits and gives you the option to add to
+        the story. Click submit to finalize your additions.
    To read:
-      - You will be redirected to a page that displays the story title and text
+      - Click on any story and you will be redirected to a page that displays
+        the story text
    To log out:
       - You will be returned to the landing page
