@@ -41,23 +41,23 @@ def logout(): #logs out user, return to login/register page
 
 @app.route("/login", methods = ["POST"])
 def login(): #check credentials against the table and confirms if they are correct
-    if (request.form['username'] == "" or request.form['password'] == ""):
+    if (request.form['username'] == "" or request.form['password'] == ""): #return error if username or password is empty
         flash("ERROR! Invalid username and password")
         flash("invalid error")
         return redirect(url_for("root"))
     else:
         dbfile = "holding.db"
         db = sqlite3.connect(dbfile)
-        c = db.cursor()
+        c = db.cursor() #above three lines allow sqlite commands to be performed from python script
         command = "SELECT username FROM users WHERE username = \"{}\";"
-        listUsers = c.execute(command.format(request.form['username']))
+        listUsers = c.execute(command.format(request.form['username'])) #fills in brackets with the given username and executes it in sqlite
         bar = list(enumerate(listUsers))
-        if len(bar) > 0:
+        if len(bar) > 0: #checks whether there exists a user with the given username
             getPass = "SELECT password FROM users WHERE username = \"{}\";"
             listPass = c.execute(getPass.format(bar[0][1][0]))
             for p in listPass:
-                if request.form['password'] == p[0]:
-                    session['user'] = request.form['username']
+                if request.form['password'] == p[0]: #correct username and password
+                    session['user'] = request.form['username'] #stores the user in the session
                     return redirect(url_for("home"))
                 else:
                     flash("ERROR! Incorrect password")
@@ -71,23 +71,23 @@ def login(): #check credentials against the table and confirms if they are corre
 @app.route("/register", methods = ["POST"])
 def register(): #adds credentials to the users table and then redirects to the homepage
     #try:
-    if (request.form['username'] == "" or request.form['password'] == ""):
+    if (request.form['username'] == "" or request.form['password'] == ""): #if username or password is empty, return error
         flash("ERROR! Username and password cannot be blank")
         flash("register error")
         return redirect(url_for("root"))
     else:
         dbfile = "holding.db"
         db = sqlite3.connect(dbfile)
-        c = db.cursor()
+        c = db.cursor() #standard connection
         command = "SELECT username FROM users WHERE username = \"{}\";"
-        newUser = c.execute(command.format(request.form['username']))
+        newUser = c.execute(command.format(request.form['username'])) #execution of sqlite command with the given username instead of the brackets
         if len(list(enumerate(newUser))) > 0:
             flash("Username is already taken. Please choose another one.")
             flash("register error")
             return redirect(url_for("root"))
         else:
-            user_id = getTableLen("users")
-            c.execute("INSERT into users VALUES(?, ?, ?);", (user_id, request.form['username'], request.form['password']))
+            user_id = getTableLen("users") #gives the user the next availabe id
+            c.execute("INSERT into users VALUES(?, ?, ?);", (user_id, request.form['username'], request.form['password'])) #different version of format
             session['user'] = request.form['username']
             db.commit()
             db.close()
@@ -109,13 +109,13 @@ def addStory(): #checks if the story exists and registers the story if it does n
     else:
         dbfile = "holding.db"
         db = sqlite3.connect(dbfile)
-        c = db.cursor()
+        c = db.cursor() #standard connection
         command = "SELECT story_name FROM stories WHERE story_name = \"{}\";"
         sameStory = c.execute(command.format(request.form['title']))
         if len(list(enumerate(sameStory))) > 0: #if story exists return an error
             flash("Title has already been taken. Please choose another one.")
             return redirect(url_for("create"))
-        else: #else add to table of stories
+        else: #else add to table of stories and edits
             story_id = getTableLen("stories")
             command = "INSERT INTO stories VALUES(?, ?, ?, ?);"
             c.execute(command, (story_id, request.form['title'], request.form['story'], request.form['story']))
@@ -127,7 +127,7 @@ def addStory(): #checks if the story exists and registers the story if it does n
         return redirect(url_for("home"))
 
 @app.route("/read/<file>")
-def read(file):
+def read(file): #take story of file (given by url), and feed it into an html file that will display it
     dbfile = "holding.db"
     db = sqlite3.connect(dbfile)
     c = db.cursor()
@@ -143,7 +143,7 @@ def read(file):
     )
 
 @app.route("/add/<file>")
-def add(file):
+def add(file): #find story given by url and its last edit, and feed it into an html file
     global currentStoryId
     dbfile = "holding.db"
     db = sqlite3.connect(dbfile)
@@ -164,7 +164,7 @@ def add(file):
     )
 
 @app.route("/addToStory", methods = ["POST"])
-def addToStory():
+def addToStory(): #changes databases when stories have been added to
     if request.form['addition'] == "":
         flash("ERROR! The addition field cannot be left blank.")
         return redirect(url_for("home"))
@@ -173,16 +173,16 @@ def addToStory():
         db = sqlite3.connect(dbfile)
         c = db.cursor()
         command = "UPDATE stories SET last_edit = \"{}\" WHERE story_id = {};"
-        c.execute(command.format(request.form['addition'],currentStoryId))
+        c.execute(command.format(request.form['addition'],currentStoryId)) #changes the last edit of the story to what was just added
         command = "INSERT INTO edits VALUES (? , ?);"
-        c.execute(command, (getUserID(),currentStoryId))
+        c.execute(command, (getUserID(),currentStoryId)) #creates a new edit (what was just added)
         command = "SELECT story_text FROM stories WHERE story_id = {};"
         story = c.execute(command.format(currentStoryId))
         updatedStory = ""
         for line in story:
-            updatedStory = line[0] + " " + request.form['addition']
+            updatedStory = line[0] + " " + request.form['addition'] #updated story = current story + last edit
         command = "UPDATE stories SET story_text = \"{}\" WHERE story_id = {};"
-        c.execute(command.format(updatedStory,currentStoryId))
+        c.execute(command.format(updatedStory,currentStoryId)) #update full story text
         db.commit()
         db.close()
         return redirect(url_for("home"))
@@ -223,13 +223,13 @@ def getCanAddToStories(): #gets all the stories that the user has not edited bef
     storyList = c.execute(command)
     stories = []
     for story in storyList:
-        stories.append(story[0])
+        stories.append(story[0]) #adds all stories to list
     id = getUserID()
     command = "SELECT story_id FROM edits WHERE user_id = \"{}\";"
     storyIdList = c.execute(command.format(id))
     shift = 0
     for storyID in list(enumerate(storyIdList)):
-        stories.pop(storyID[1][0] - shift)
+        stories.pop(storyID[1][0] - shift) #removes story from list if user has edited it
         shift += 1
     db.commit()
     db.close()

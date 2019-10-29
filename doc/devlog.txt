@@ -177,3 +177,9 @@ created reset.py
 
 williamL -- 2019-10-26 15:45
 updated the site map in design.pdf to match the current state of our project
+
+benjaminA -- 2019-10-27 22:20
+Added comments to app.py to make code more readable
+
+williamL -- 2019-10-28 4:37
+Updated the README file to match our current design
