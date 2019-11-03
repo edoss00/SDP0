@@ -6,7 +6,7 @@
 {% endblock %}
 {% block content %}
   <h2>Latest Edit: </h2>
-  {{story}}
+  <span>{{story}}<span>
   <br><br>
   <form action = "/addToStory", method = "POST">
     <textarea name = "addition" rows = "10" cols = "50"> </textarea><br>

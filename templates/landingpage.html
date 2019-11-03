@@ -22,10 +22,10 @@
   {% endwith %}
   <form action = "/login", method = "POST">
     Enter your username:
-    <input type = "text" name = "username"> <br><br>
+    <input type = "text" name = "username" class="land"> <br><br>
     Enter your password:
-    <input type = "text" name = "password"> <br><br>
-    <input type = "submit" name = "sub1" value = "login"> <br>
+    <input type = "text" name = "password"  class="land"> <br><br>
+    <input type = "submit" name = "sub1" value = "Login"> <br>
   </form>
   <h1> REGISTER </h1>
   {% with messages = get_flashed_messages() %}
@@ -37,10 +37,10 @@
   {% endwith %}
   <form action = "/register", method = "POST">
     Enter your username:
-    <input type = "text" name = "username"> <br><br>
+    <input type = "text" name = "username" class="land"> <br><br>
     Enter your password:
-    <input type = "text" name = "password"> <br><br>
-    <input type = "submit" name = "sub2" value = "register"> <br>
+    <input type = "text" name = "password" class="land"> <br><br>
+    <input type = "submit" name = "sub2" value = "Register"> <br>
   </form>
 {% endblock %}
 {% block footer %}

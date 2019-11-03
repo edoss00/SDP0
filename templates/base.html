@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html>
   <head>
+
     {% block header %}
     {% block title %}
       title
     {% endblock %}
       Header
     {% endblock %}
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
   </head>
   <body>
     {% block content %}
@@ -16,3 +18,14 @@
     {% endblock %}
   </body>
 </html>
+
+<!--
+HEX: #f9d5e5
+HEX: #eeac99
+HEX: #e06377
+HEX: #c83349
+HEX: #5b9aa0
+HEX: #d6d4e0
+HEX: #b8a9c9
+HEX: #622569
+-->
